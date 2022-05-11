@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import RequireAuth from "../../components/RequireAuth";
-import { ScreenContainer } from "../../../styles/layout/Container";
+import { ScreenContainer, Container } from "../../../styles/layout/Container";
 import TopNav from "./components/TopNav";
 import { Main } from "./style";
 import NavBar from "./components/Navbar";
@@ -10,23 +10,24 @@ import { RouteType } from "../../../shared/constants/types";
 
 const Dashboard: FC<{ routes?: RouteType[] | undefined }> = ({ routes }) => {
   const { isOpened } = useNavbar();
+
   return (
     <RequireAuth>
-      <ScreenContainer className="flex hidden-overflow">
+      <ScreenContainer className="flex hidden-overflowX">
         <NavBar />
-        <Main className="" isOpened={isOpened}>
+        <Main className="" isopened={isOpened ? "true" : undefined}>
           <TopNav />
-          <main className="mt-16">
+          <Container className="mt-24 h-full-24">
             <Routes>
               {routes?.map((route) => (
                 <Route
                   key={route.name}
                   path={route.path}
-                  element={<route.Component />}
+                  element={<route.Component routes={route.routes} />}
                 />
               ))}
             </Routes>
-          </main>
+          </Container>
         </Main>
       </ScreenContainer>
     </RequireAuth>

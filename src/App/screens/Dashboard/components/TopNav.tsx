@@ -11,7 +11,7 @@ const TopNav = () => {
   const { isOpened, setIsOpened } = useNavbar();
 
   return (
-    <SecondaryContainer className="flex fixed h-16 w-full">
+    <SecondaryContainer className="flex fixed h-16 w-full above-zIndex">
       <Container className="flex-grow float-left center-v ml-4 lg_hidden">
         <HamburgerBtn
           className="p-1"

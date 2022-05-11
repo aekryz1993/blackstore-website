@@ -1,24 +1,21 @@
-// import { Container } from "src/styles/layout/Container";
-// import components from "src/styles/components";
-// import { Status } from "src/Enums";
-// import FormHook from "@shared/modules/FormHook";
 import { Container } from "../../../../styles/layout/Container";
 import components from "../../../../styles/components";
 import { Status } from "../../../../Enums";
 import { Props } from "./type";
-import FormHook from "../../../../shared/modules/FormHook";
+import Form from "../../../../shared/modules/Form/SimpleForm";
 import { loginFields } from "./helper";
 
 const { ErrorText, HeaderText } = components;
 
-const Login = ({ onSubmit, status, error }: Props) => (
+const Login = ({ onSubmit, status, error, refs }: Props) => (
   <Container className="flex flex-col gap-16 md__w-64">
     <HeaderText>Log In</HeaderText>
-    <FormHook
+    <Form
       onSubmit={onSubmit}
       fields={loginFields}
-      fieldClsName="gap-2"
+      formClsname="flex flex-col gap-10"
       status={status}
+      refs={refs}
       textBtn="Log in"
     />
     {status === Status.ERROR && <ErrorText>{error}</ErrorText>}

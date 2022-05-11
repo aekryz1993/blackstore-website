@@ -85,6 +85,10 @@ const dimensions = css`
     height: 100%;
   }
 
+  .h-full-24 {
+    min-height: calc(100% - 6rem);
+  }
+
   .h-screen {
     height: 100vh;
   }
@@ -279,6 +283,10 @@ const dimensions = css`
 
   .min-h-full {
     min-height: 100%;
+  }
+
+  .h-full {
+    height: 100%;
   }
 
   .min-h-screen {
@@ -593,6 +601,10 @@ const dimensions = css`
     .sm__w-full {
       width: 100%;
     }
+
+    .sm__h-full-24 {
+      min-height: calc(100% - 6rem);
+    }
   }
 
   @media (min-width: 650px) {
@@ -894,6 +906,10 @@ const dimensions = css`
 
     .md__w-full {
       width: 100%;
+    }
+
+    .md__h-full-24 {
+      min-height: calc(100% - 6rem);
     }
   }
 
@@ -1197,6 +1213,10 @@ const dimensions = css`
     .lg__w-full {
       width: 100%;
     }
+
+    .lg__h-full-24 {
+      min-height: calc(100% - 6rem);
+    }
   }
 
   @media (min-width: 1280px) {
@@ -1498,6 +1518,10 @@ const dimensions = css`
 
     .xl__w-full {
       width: 100%;
+    }
+
+    .xl__h-full-24 {
+      min-height: calc(100% - 6rem);
     }
   }
 `;

@@ -13,6 +13,9 @@ const Globals = createGlobalStyle`
   ${space}
   ${animation}
   ${position}
+  .cursor-pointer {
+    cursor: pointer;
+  }
 `;
 
 export default Globals;

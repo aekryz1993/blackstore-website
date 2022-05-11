@@ -1,17 +1,20 @@
-import { Container } from "../../../../styles/layout/Container";
 import { useNavbar } from "../../../../shared/providers/NavbarContext";
 import { SideBar } from "../style";
 import Profile from "./Profile";
 import NavItems from "./NavItems";
+import Logout from "./Logout";
 
 const NavBar = () => {
   const { isOpened } = useNavbar();
 
   return (
-    <SideBar className="flex flex-col gap-12" isOpened={isOpened}>
+    <SideBar
+      className="flex flex-col gap-12 m-0"
+      isopened={isOpened ? "true" : undefined}
+    >
       <Profile />
       <NavItems />
-      <Container className="flex flex-col justify-center align-center w-full flex-grow-3"></Container>
+      <Logout />
     </SideBar>
   );
 };

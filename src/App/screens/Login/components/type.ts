@@ -1,5 +1,4 @@
-import { SubmitHandler } from "react-hook-form";
-import { Status } from "@src/Enums";
+import { FormTypes } from "../../../../shared/modules/Form/types";
 
 export type IFormInput = {
   username: string | undefined;
@@ -11,8 +10,7 @@ export type IFormInputFilled = {
   password: string;
 };
 
-export interface Props {
-  status: Status;
-  error: null | string | undefined;
-  onSubmit: SubmitHandler<IFormInput>;
-}
+export type Props = Pick<
+  FormTypes,
+  "refs" | "status" | "onSubmit" | "cancelBtn"
+> & { error: null | string | undefined };

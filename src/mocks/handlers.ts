@@ -5,7 +5,7 @@ import getUrl, { url } from "../shared/constants/apiUrls";
 import { isMatch } from "../shared/helpers/util";
 
 const handlers = [
-  rest.post<LoginBody>(getUrl(url.login), (req, res, ctx) => {
+  rest.post<LoginBody>(getUrl(url.login as string), (req, res, ctx) => {
     const { username, password } = req.body;
     if (!isMatch(username, loginBody.username))
       return res(ctx.status(401), ctx.json(faileLogin(username)));
@@ -14,7 +14,11 @@ const handlers = [
     return res(ctx.status(200), ctx.json(loginResponse.data));
   }),
 
-  rest.get(getUrl(url.session), (req, res, ctx) => {
+  rest.get(getUrl(url.session as string), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(loginResponse.data));
+  }),
+
+  rest.get(getUrl(url.products as string), (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(loginResponse.data));
   }),
 ];

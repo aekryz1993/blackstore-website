@@ -2,6 +2,7 @@ import { Field } from "@shared/constants/types";
 
 export const loginFields: Readonly<Field[]> = [
   {
+    id: 0,
     type: "text",
     placeholder: "Username",
     name: "username",
@@ -12,6 +13,7 @@ export const loginFields: Readonly<Field[]> = [
     },
   },
   {
+    id: 1,
     type: "password",
     placeholder: "Password",
     name: "password",

@@ -32,11 +32,7 @@ export const loginResponse = {
   },
 };
 
-export const tokenResponse = {
-  data: {
-    token: "token_string",
-  },
-};
+export const token = "token_string";
 
 export const loginBody = {
   username: "username",

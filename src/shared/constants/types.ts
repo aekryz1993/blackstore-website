@@ -3,7 +3,18 @@ import { FC } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { Status } from "@src/Enums";
 
-export interface Image {}
+export interface Image {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  type: undefined | null | string;
+  size: undefined | null | number;
+  url: string;
+  ServiceId: string;
+  UserId: string | null;
+}
+
 export interface Permission {
   id: string;
   addProduct: boolean;
@@ -20,6 +31,7 @@ export interface Permission {
   updatedAt: Date;
   UserId: string;
 }
+
 export interface Wallet {}
 
 export interface User {
@@ -38,6 +50,36 @@ export interface User {
   Wallet?: Wallet | null;
 }
 
+export interface Price {
+  id: string;
+  dollar: number;
+  euro: number;
+  dinnar: number;
+  createdAt: Date;
+  updatedAt: Date;
+  ProductCategoryId: string | null;
+  ProductIDId: string | null;
+}
+
+export interface ProductCategoriesType {
+  id: string;
+  label: string;
+  createdAt: Date;
+  updatedAt: Date;
+  ServiceId: string;
+  Price: Price;
+}
+
+export interface Product {
+  id: string;
+  label: string;
+  category: string;
+  createdAt: Date;
+  updatedAt: Date;
+  ProductCategories: ProductCategoriesType[] | [];
+  Image: Image | null;
+}
+
 export type Dispatch = (...args: any) => void;
 
 export interface RouteType {
@@ -53,22 +95,31 @@ export type IGetTextById = (<T extends HTMLElement = HTMLElement>(
 ) => T) &
   ((id: Matcher, options?: MatcherOptions | undefined) => HTMLElement);
 
-export interface Field {
+export interface OneField {
+  id: number;
   type: string;
   placeholder: string;
   name: string;
-  required: boolean | string;
-  minLength: Readonly<{
+  required?: string;
+  minLength?: Readonly<{
     value: number;
     message: string;
   }>;
 }
+
+export type Field =
+  | OneField
+  | {
+      fields: Readonly<OneField[]>;
+      className: string;
+    };
 
 export interface FormHookType {
   onSubmit: SubmitHandler<any>;
   fields: Readonly<Field[]>;
   fieldClsName?: string;
   formClsname?: string;
-  status: Status;
+  status?: Status;
   textBtn: string;
+  cancelBtn?: FC;
 }

@@ -8,10 +8,26 @@ interface Routes {
   [key: string]: Readonly<Route>;
 }
 
-const dashboardSubroutes: Readonly<Routes> = Object.freeze({
+const productsSubroutes: Readonly<Routes> = Object.freeze({
   PRODUCTS: {
     name: "Products",
     route: "/",
+  },
+  PRODUCT: {
+    name: "Product",
+    route: "/product/:id",
+  },
+  CATEGORY: {
+    name: "Category",
+    route: "/category/:id",
+  },
+});
+
+const dashboardSubroutes: Readonly<Routes> = Object.freeze({
+  PRODUCTS: {
+    name: "Products",
+    route: "/*",
+    subroutes: productsSubroutes,
   },
   USERS: {
     name: "Users",
@@ -34,7 +50,7 @@ const route: Readonly<Routes> = Object.freeze({
   },
   DASHBOARD: {
     name: "Dashboard",
-    route: "/",
+    route: "/*",
     subroutes: dashboardSubroutes,
   },
 });

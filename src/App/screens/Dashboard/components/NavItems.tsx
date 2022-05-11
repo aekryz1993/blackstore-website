@@ -1,3 +1,4 @@
+import { removeStar } from "../../../../shared/helpers/util";
 import { useNavbar } from "../../../../shared/providers/NavbarContext";
 import { Sidebar, SidebarItem } from "../../../../styles/components/Sidebar";
 import AppRoute from "../route";
@@ -11,7 +12,7 @@ const NavItems = () => {
           <SidebarItem
             onClick={() => setIsOpened(() => !isOpened)}
             key={route.name}
-            to={route.path}
+            to={removeStar(route.path)}
           >
             {route.name}
           </SidebarItem>

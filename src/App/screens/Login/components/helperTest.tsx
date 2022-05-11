@@ -13,12 +13,12 @@ export const mockLoginFlow = (
       result?.loginRequest();
 
       const response = (await postApi<LoginBody>({
-        url: url.login,
+        url: url.login as string,
         body: data as IFormInputFilled,
       })) as ResponseData;
       console.log(response);
 
-      const tknRes = (await getApi(url.token)) as ResponseData;
+      const tknRes = (await getApi(url.token as string)) as ResponseData;
       console.log(tknRes);
 
       // act(() => {

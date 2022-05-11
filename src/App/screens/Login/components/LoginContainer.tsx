@@ -1,14 +1,13 @@
-import { FC } from "react";
 // import { useAuth } from "@shared/providers/AuthProvider";
 import { useAuth } from "../../../../shared/providers/AuthProvider";
 import Login from "./Login";
 import useLogin from "./useLogin";
 
-const LoginContainer: FC = () => {
+const LoginContainer = () => {
   const { authState, loginRequest, loginSuccessed, loginFailed, loginEnded } =
     useAuth();
 
-  const { onSubmit } = useLogin({
+  const { onSubmit, refs } = useLogin({
     status: authState.status,
     loginRequest,
     loginSuccessed,
@@ -21,6 +20,7 @@ const LoginContainer: FC = () => {
       onSubmit={onSubmit}
       status={authState.status}
       error={authState.error}
+      refs={refs}
     />
   );
 };

@@ -16,9 +16,9 @@ const reset = css`
     margin: 0 auto;
   } */
 
-  * + * {
+  /* * + * {
     margin-top: 1em;
-  }
+  } */
 
   .flex * {
     margin-top: 0;
@@ -27,13 +27,12 @@ const reset = css`
   body {
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
   }
 
   #root {
     position: absolute;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100%;
   }
 
   body,
@@ -53,6 +52,15 @@ const reset = css`
 
   button {
     border: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
   }
 `;
 

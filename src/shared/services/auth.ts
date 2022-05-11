@@ -1,7 +1,12 @@
 import { url } from "../constants/apiUrls";
 import { checkDeterminedDispatch } from "../helpers/util";
-import { getApi, postApi, ResponseData } from "../../apis";
+import { getApi, postApi } from "../../apis";
 import { Dispatch } from "@shared/constants/types";
+import {
+  failedWithError,
+  failedWithoutError,
+  successResponse,
+} from "./helpers";
 
 export interface LoginBody {
   username: string;
@@ -14,52 +19,26 @@ export interface AuthContextLogin {
   loginSuccessed?: Dispatch;
   loginFailed?: Dispatch;
   loginEnded?: Dispatch;
-  noSession?: Dispatch;
 }
 
-export async function successLogin(
-  response: ResponseData,
-  dispatch: Dispatch | undefined,
-  token?: string
-) {
-  try {
-    checkDeterminedDispatch(dispatch)({
-      user: response.data.user,
-      token: response.data.token ?? token,
-    });
-  } catch (error) {
-    return error;
-  }
-}
-
-export async function failedLogin(
-  dispatch: Dispatch | undefined,
-  error?: Error
-) {
-  try {
-    checkDeterminedDispatch(dispatch)({
-      error: error?.message ?? null,
-    });
-  } catch (error) {
-    return error;
-  }
-}
-
-export async function sessionNotExist(dispatch: Dispatch | undefined) {
-  try {
-    checkDeterminedDispatch(dispatch)();
-  } catch (error) {
-    return error;
-  }
+export interface AuthContextLogout {
+  logoutRequest?: Dispatch;
+  logoutSuccessed?: Dispatch;
+  logoutFailed?: Dispatch;
+  logoutEnded?: Dispatch;
 }
 
 export async function loginFlow(body: LoginBody, context: AuthContextLogin) {
   try {
     checkDeterminedDispatch(context?.loginRequest)();
-    const response = await postApi({ url: url.login, body });
-    successLogin(response, context?.loginSuccessed);
+    const response = await postApi({ url: url.login as string, body });
+    successResponse({
+      dispatch: context?.loginSuccessed,
+      response,
+      labels: ["user"],
+    });
   } catch (error) {
-    failedLogin(context?.loginFailed, error as Error);
+    failedWithError(context?.loginFailed, error as Error);
   }
 }
 
@@ -69,9 +48,24 @@ export async function checkSessionFlow(
 ) {
   try {
     checkDeterminedDispatch(context?.checkSession)();
-    const response = await getApi(url.session, token);
-    successLogin(response, context?.loginSuccessed, token);
+    const response = await getApi(url.session as string, token);
+    successResponse({
+      dispatch: context?.loginSuccessed,
+      response,
+      token,
+      labels: ["user"],
+    });
   } catch (error) {
-    failedLogin(context?.loginFailed);
+    failedWithoutError(context?.loginFailed);
+  }
+}
+
+export async function logoutFlow(context: AuthContextLogout, token: string) {
+  try {
+    checkDeterminedDispatch(context?.logoutRequest)();
+    await getApi(url.logout as string, token);
+    successResponse({ dispatch: context?.logoutSuccessed });
+  } catch (error) {
+    failedWithoutError(context?.logoutFailed);
   }
 }

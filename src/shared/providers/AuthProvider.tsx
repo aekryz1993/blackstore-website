@@ -3,6 +3,14 @@ import React, { useReducer, createContext, useContext } from "react";
 import { Status } from "../../Enums";
 import { AuthAction, AuthState } from "@App/screens/Login/types";
 import { Dispatch, User } from "@shared/constants/types";
+import {
+  defaultState,
+  endAction,
+  failAction,
+  loadingBtn,
+  loadingLayout,
+  successAction,
+} from "./helper";
 
 export interface AuthContextTypeDef {
   authState: AuthState;
@@ -27,81 +35,51 @@ const initialAuth: AuthState = {
 };
 
 export const reducer = (state: Readonly<AuthState>, action: AuthAction) => {
-  function loginRequest() {
-    return {
-      ...state,
-      status: Status.BTNLOADING,
-    };
-  }
-
-  function request() {
-    return {
-      ...state,
-      status: Status.LOADING,
-    };
-  }
-
-  function endRequest() {
-    return {
-      ...state,
-      status: Status.PENDING,
-      error: null,
-    };
-  }
-
-  function successLogin() {
-    return {
-      ...state,
-      status: Status.SUCCESS,
-      error: null,
-      user: action.payload?.user,
-      token: action.payload?.token,
-    };
-  }
-
-  function failedLogin() {
-    return {
-      ...state,
-      status: Status.ERROR,
-      error: action.payload?.error,
-      user: null,
-      token: null,
-    };
-  }
-
-  function successLogout() {
-    return {
-      ...state,
-      status: Status.SUCCESS,
-      error: null,
-      user: null,
-      token: null,
-    };
-  }
-
-  function failedLogout() {
-    return {
-      ...state,
-      status: Status.ERROR,
-      error: action.payload?.error,
-    };
-  }
-
-  function defaultState() {
-    return state;
-  }
-
   const actions = {
-    LOGIN_REQUEST: loginRequest,
-    LOGIN_SUCCEED: successLogin,
-    LOGIN_FAILED: failedLogin,
-    CHECK_SESSION: request,
-    LOGIN_ENDED: endRequest,
-    LOGOUT_REQUEST: request,
-    LOGOUT_SUCCEED: successLogout,
-    LOGOUT_FAILED: failedLogout,
-    LOGOUT_ENDED: endRequest,
-    DEFAULT: defaultState,
+    LOGIN_REQUEST: loadingBtn<AuthState>(state),
+    LOGIN_SUCCEED: successAction<AuthState>({
+      state,
+      fields: {
+        error: null,
+        user: action.payload?.user,
+        token: action.payload?.token,
+      },
+    }),
+    LOGIN_FAILED: failAction<AuthState>({
+      state,
+      fields: {
+        error: action.payload?.error,
+        user: null,
+        token: null,
+      },
+    }),
+
+    CHECK_SESSION: loadingLayout<AuthState>(state),
+
+    LOGIN_ENDED: endAction<AuthState>({
+      state,
+      fields: { error: null },
+    }),
+    LOGOUT_REQUEST: loadingLayout<AuthState>(state),
+    LOGOUT_SUCCEED: successAction<AuthState>({
+      state,
+      fields: {
+        error: null,
+        user: null,
+        token: null,
+      },
+    }),
+    LOGOUT_FAILED: failAction<AuthState>({
+      state,
+      fields: {
+        error: action.payload?.error,
+      },
+    }),
+    LOGOUT_ENDED: endAction<AuthState>({
+      state,
+      fields: { error: null },
+    }),
+    DEFAULT: defaultState<AuthState>(state),
   };
 
   return (actions[action.type] || actions["DEFAULT"])();

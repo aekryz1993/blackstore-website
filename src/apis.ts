@@ -1,9 +1,8 @@
 import axios from "axios";
-// import getUrl from "@shared/constants/apiUrls";
 import getUrl from "./shared/constants/apiUrls";
 
 interface ApiParams<T> {
-  url: string;
+  url: string | undefined;
   body: T;
   token?: string;
 }
@@ -14,7 +13,7 @@ export interface ResponseData {
 }
 
 export async function getApi(
-  url: string,
+  url: string | undefined,
   token?: string
 ): Promise<ResponseData> {
   const response = await fetch(getUrl(url), {
@@ -24,11 +23,11 @@ export async function getApi(
       "Content-Type": "application/json",
     },
   });
-  const data = await response.text();
+  const data = await response.json();
   if (!response.ok) {
-    throw JSON.parse(data);
+    throw data;
   }
-  return { data: JSON.parse(data) };
+  return { data };
 }
 
 export async function postApi<T>({
@@ -44,11 +43,11 @@ export async function postApi<T>({
     },
     body: JSON.stringify(body),
   });
-  const data = await response.text();
+  const data = await response.json();
   if (!response.ok) {
-    throw JSON.parse(data);
+    throw data;
   }
-  return { data: JSON.parse(data) };
+  return { data };
 }
 
 export async function formDataApi<T>({

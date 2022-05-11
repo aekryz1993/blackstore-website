@@ -8,7 +8,6 @@ import { useAuth } from "../../shared/providers/AuthProvider";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 import appRoutes from "../routes";
-import { Status } from "../../Enums";
 
 const Auth: React.FC = () => {
   const { authState, checkSession, loginSuccessed, loginFailed, loginEnded } =
@@ -29,7 +28,7 @@ const Auth: React.FC = () => {
   useEffect(() => {
     let doUpdate = true;
     async function check() {
-      if (doUpdate && !authState.user && authState.status === Status.PENDING) {
+      if (doUpdate && token) {
         await checkSessionFlow(token as string, {
           checkSession: savedSessionRequest.current,
           loginSuccessed: savedSessionSuccessed.current,
@@ -43,9 +42,7 @@ const Auth: React.FC = () => {
       doUpdate = false;
     };
   }, [
-    authState.user,
     token,
-    authState.status,
     savedSessionRequest,
     savedSessionSuccessed,
     savedSessionFailed,
@@ -63,7 +60,7 @@ const Auth: React.FC = () => {
         {appRoutes.map((route) => (
           <Route
             key={route.name}
-            path={`${route.path}/*`}
+            path={route.path}
             element={<route.Component routes={route.routes} />}
           />
         ))}

@@ -9,12 +9,13 @@ import { renderHook, act } from "@testing-library/react-hooks";
 import Provider from "@shared/providers";
 import { useAuth } from "@shared/providers/AuthProvider";
 import { Status } from "@src/Enums";
-import { LoginBody, successLogin } from "../../../shared/services/auth";
+import { LoginBody } from "../../../shared/services/auth";
+import { successResponse } from "../../../shared/services/helpers";
 
 describe("login rest api response", () => {
   test("successfully login", async () => {
     const response = await postApi<LoginBody>({
-      url: url.login,
+      url: url.login as string,
       body: loginBody,
     });
     expect(response).toEqual(loginResponse);
@@ -64,14 +65,14 @@ describe("login flow", () => {
   test("trigger successful login flow", async () => {
     const result = getResult();
     const response = (await postApi<LoginBody>({
-      url: url.login,
+      url: url.login as string,
       body: loginBody,
     })) as ResponseData;
     expect(response).toEqual(loginResponse);
     expect(result.current.authState.error).toBe(null);
 
     act(() => {
-      successLogin(response, result.current.loginSuccessed);
+      successResponse({ response, dispatch: result.current.loginSuccessed });
     });
     expect(result.current.authState.status).toBe(Status.SUCCESS);
     expect(result.current.authState.error).toBe(null);

@@ -47,58 +47,58 @@ export const reducer = (
     FETCHPRODUCTS_REQUEST: loadingLayout<ProductsState>(state),
     FETCHPRODUCTS_SUCCEED: successAction<ProductsState>({
       state,
-      fields: {
+      fields: () => ({
         products: action.payload?.products,
         error: null,
-      },
+      }),
     }),
     FETCHPRODUCTS_FAILED: failAction<ProductsState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
     FETCHPRODUCTS_ENDED: endAction<ProductsState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
 
     ADDPRODUCT_REQUEST: loadingBtn<ProductsState>(state),
     ADDPRODUCT_SUCCEED: successAction<ProductsState>({
       state,
-      fields: {
+      fields: () => ({
         products: state.products
           ? [...state.products, action.payload?.product]
           : [action.payload?.product],
         error: null,
-      },
+      }),
     }),
     ADDPRODUCT_FAILED: failAction<ProductsState>({
       state,
-      fields: { error: action.payload?.error },
+      fields: () => ({ error: action.payload?.error }),
     }),
     ADDPRODUCT_ENDED: endAction<ProductsState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
 
     UPDATEPRODUCT_REQUEST: loadingBtn<ProductsState>(state),
     UPDATEPRODUCT_SUCCEED: successAction<ProductsState>({
       state,
-      fields: {
+      fields: () => ({
         products: updateList(
           action.payload?.products,
           action.payload?.id,
           action.payload?.updatedProduct
         ) as Product[],
         error: null,
-      },
+      }),
     }),
     UPDATEPRODUCT_FAILED: failAction<ProductsState>({
       state,
-      fields: { error: action.payload?.error },
+      fields: () => ({ error: action.payload?.error }),
     }),
     UPDATEPRODUCT_ENDED: endAction<ProductsState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
 
     DEFAULT: defaultState<ProductsState>(state),

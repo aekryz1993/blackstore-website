@@ -50,7 +50,7 @@ export const reducer = (state: Readonly<UsersState>, action: UsersAction) => {
     FETCHUSERS_REQUEST: loadingBtn<UsersState>(state),
     FETCHUSERS_SUCCEED: successAction<UsersState>({
       state,
-      fields: {
+      fields: () => ({
         users:
           state.users?.length && action.payload?.users.length
             ? [...state.users, ...action.payload?.users]
@@ -59,15 +59,15 @@ export const reducer = (state: Readonly<UsersState>, action: UsersAction) => {
         totalPages: action.payload?.totalPages,
         totalUsers: action.payload?.totalUsers,
         error: null,
-      },
+      }),
     }),
     FETCHUSERS_FAILED: failAction<UsersState>({
       state,
-      fields: { error: action.payload?.error },
+      fields: () => ({ error: action.payload?.error }),
     }),
     FETCHUSERS_ENDED: endAction<UsersState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
 
     FETCHPREVUSERS: () => ({
@@ -102,30 +102,31 @@ export const reducer = (state: Readonly<UsersState>, action: UsersAction) => {
     ADDUSER_REQUEST: loadingBtn<UsersState>(state),
     ADDUSER_SUCCEED: successAction<UsersState>({
       state,
-      fields: {
-        users:
-          state.users?.length && action.payload?.users.length
+      fields: () => {
+        return {
+          users: state.users?.length
             ? [...state.users, action.payload?.user]
             : [action.payload?.user],
-        totalPages: action.payload?.totalPages,
-        totalUsers: action.payload?.totalUsers,
-        page: state.totalPages - 1,
-        error: null,
+          totalPages: action.payload?.totalPages,
+          totalUsers: action.payload?.totalUsers,
+          page: state.totalPages - 1,
+          error: null,
+        };
       },
     }),
     ADDUSER_FAILED: failAction<UsersState>({
       state,
-      fields: { error: action.payload?.error },
+      fields: () => ({ error: action.payload?.error }),
     }),
     ADDUSER_ENDED: endAction<UsersState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
 
     UPDATEUSER_REQUEST: loadingBtn<UsersState>(state),
     UPDATEUSER_SUCCEED: successAction<UsersState>({
       state,
-      fields: {
+      fields: () => ({
         users: updateList(
           action.payload?.users,
           action.payload?.id,
@@ -133,15 +134,15 @@ export const reducer = (state: Readonly<UsersState>, action: UsersAction) => {
         ) as User[],
         page: state.totalPages - 1,
         error: null,
-      },
+      }),
     }),
     UPDATEUSER_FAILED: failAction<UsersState>({
       state,
-      fields: { error: action.payload?.error },
+      fields: () => ({ error: action.payload?.error }),
     }),
     UPDATEUSER_ENDED: endAction<UsersState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
 
     DEFAULT: defaultState<UsersState>(state),

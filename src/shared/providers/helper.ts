@@ -2,7 +2,7 @@ import { Status } from "../../Enums";
 
 interface actionParamsType<StateType> {
   state: StateType;
-  fields: Partial<StateType>;
+  fields: () => Partial<StateType>;
 }
 
 export function loadingLayout<StateType>(state: StateType) {
@@ -24,10 +24,12 @@ export function action<StateType>(
   status: Status
 ) {
   const updatedState: Partial<StateType> = { ...state, status };
-  for (let field in fields) {
-    updatedState[field] = fields[field];
-  }
-  return () => updatedState as StateType;
+  return () => {
+    for (let field in fields()) {
+      updatedState[field] = fields()[field];
+    }
+    return updatedState as StateType;
+  };
 }
 
 export function successAction<StateType>({

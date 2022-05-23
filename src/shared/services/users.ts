@@ -24,8 +24,6 @@ export interface UpdateUserContext {
   updateUserFailed?: Dispatch;
 }
 
-// export type UserBodyType = Omit<User, "id" | "isVerified" | "auth">;
-
 export async function fetchUsersFlow(
   context: fetchUsersContext,
   token: string,

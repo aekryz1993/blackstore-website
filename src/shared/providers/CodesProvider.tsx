@@ -39,35 +39,35 @@ export const reducer = (state: Readonly<CodesState>, action: CodesAction) => {
     ADDCODES_REQUEST: loadingBtn<CodesState>(state),
     ADDCODES_SUCCEED: successAction<CodesState>({
       state,
-      fields: {
+      fields: () => ({
         codes: [],
         error: null,
-      },
+      }),
     }),
     ADDCODES_FAILED: failAction<CodesState>({
       state,
-      fields: { error: action.payload?.error },
+      fields: () => ({ error: action.payload?.error }),
     }),
     ADDCODES_ENDED: endAction<CodesState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
 
     FETCHCODES_REQUEST: loadingBtn<CodesState>(state),
     FETCHCODES_SUCCEED: successAction<CodesState>({
       state,
-      fields: {
+      fields: () => ({
         codes: action.payload?.codes,
         error: null,
-      },
+      }),
     }),
     FETCHCODES_FAILED: failAction<CodesState>({
       state,
-      fields: { error: action.payload?.error },
+      fields: () => ({ error: action.payload?.error }),
     }),
     FETCHCODES_ENDED: endAction<CodesState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
 
     DEFAULT: defaultState<CodesState>(state),

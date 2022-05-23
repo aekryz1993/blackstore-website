@@ -39,45 +39,45 @@ export const reducer = (state: Readonly<AuthState>, action: AuthAction) => {
     LOGIN_REQUEST: loadingBtn<AuthState>(state),
     LOGIN_SUCCEED: successAction<AuthState>({
       state,
-      fields: {
+      fields: () => ({
         error: null,
         user: action.payload?.user,
         token: action.payload?.token,
-      },
+      }),
     }),
     LOGIN_FAILED: failAction<AuthState>({
       state,
-      fields: {
+      fields: () => ({
         error: action.payload?.error,
         user: null,
         token: null,
-      },
+      }),
     }),
 
     CHECK_SESSION: loadingLayout<AuthState>(state),
 
     LOGIN_ENDED: endAction<AuthState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
     LOGOUT_REQUEST: loadingLayout<AuthState>(state),
     LOGOUT_SUCCEED: successAction<AuthState>({
       state,
-      fields: {
+      fields: () => ({
         error: null,
         user: null,
         token: null,
-      },
+      }),
     }),
     LOGOUT_FAILED: failAction<AuthState>({
       state,
-      fields: {
+      fields: () => ({
         error: action.payload?.error,
-      },
+      }),
     }),
     LOGOUT_ENDED: endAction<AuthState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
     DEFAULT: defaultState<AuthState>(state),
   };

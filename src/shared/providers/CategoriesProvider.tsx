@@ -48,42 +48,42 @@ export const reducer = (
     ADDCATEGORY_REQUEST: loadingBtn<CategoriesState>(state),
     ADDCATEGORY_SUCCEED: successAction<CategoriesState>({
       state,
-      fields: {
+      fields: () => ({
         categories:
           state.categories.length !== 0
             ? [...state.categories, action.payload?.category]
             : [action.payload?.category],
         error: null,
-      },
+      }),
     }),
     ADDCATEGORY_FAILED: failAction<CategoriesState>({
       state,
-      fields: { error: action.payload?.error },
+      fields: () => ({ error: action.payload?.error }),
     }),
     ADDCATEGORY_ENDED: endAction<CategoriesState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
 
     UPDATECATEGORY_REQUEST: loadingBtn<CategoriesState>(state),
     UPDATECATEGORY_SUCCEED: successAction<CategoriesState>({
       state,
-      fields: {
+      fields: () => ({
         categories: updateList(
           action.payload?.categories,
           action.payload?.id,
           action.payload?.updatedCategory
         ) as ProductCategoriesType[],
         error: null,
-      },
+      }),
     }),
     UPDATECATEGORY_FAILED: failAction<CategoriesState>({
       state,
-      fields: { error: action.payload?.error },
+      fields: () => ({ error: action.payload?.error }),
     }),
     UPDATECATEGORY_ENDED: endAction<CategoriesState>({
       state,
-      fields: { error: null },
+      fields: () => ({ error: null }),
     }),
 
     DEFAULT: defaultState<CategoriesState>(state),

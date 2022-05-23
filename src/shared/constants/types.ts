@@ -34,11 +34,25 @@ export interface Permission {
 
 export interface Wallet {}
 
+export interface CodesType {
+  id: string;
+  codes: string;
+  Serial: string;
+  Date: string;
+  sold: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  ProductCategoryId: string | null;
+  UserId: string | null;
+  CommandId: string | null;
+}
+
 export interface User {
   id: string;
   firstname: string;
   lastname: string;
   username: string;
+  fullname: string;
   email: string;
   phone: string;
   isVerified: boolean;
@@ -98,8 +112,9 @@ export type IGetTextById = (<T extends HTMLElement = HTMLElement>(
 export interface OneField {
   id: number;
   type: string;
-  placeholder: string;
+  placeholder?: string;
   name: string;
+  value?: string | undefined | null | boolean;
   required?: string;
   minLength?: Readonly<{
     value: number;
@@ -123,3 +138,59 @@ export interface FormHookType {
   textBtn: string;
   cancelBtn?: FC;
 }
+
+export interface CodesState {
+  codes: CodesType[] | [];
+  status: Status;
+  error: string | undefined | null;
+}
+
+export type CodesActionType =
+  | "ADDCODES_REQUEST"
+  | "ADDCODES_SUCCEED"
+  | "ADDCODES_FAILED"
+  | "ADDCODES_ENDED"
+  | "FETCHCODES_REQUEST"
+  | "FETCHCODES_SUCCEED"
+  | "FETCHCODES_FAILED"
+  | "FETCHCODES_ENDED";
+
+export interface CodesAction {
+  type: CodesActionType;
+  payload?: Record<any, any>;
+}
+
+export interface UsersState {
+  users: User[] | [];
+  currentUsers: User[] | [];
+  page: number;
+  totalPages: number;
+  totalUsers: number;
+  status: Status;
+  error: string | undefined | null;
+}
+
+export type UsersActionType =
+  | "FETCHUSERS_REQUEST"
+  | "FETCHUSERS_SUCCEED"
+  | "FETCHUSERS_FAILED"
+  | "FETCHUSERS_ENDED"
+  | "FETCHPREVUSERS"
+  | "FETCHNEXTUSERS"
+  | "ADDUSER_REQUEST"
+  | "ADDUSER_SUCCEED"
+  | "ADDUSER_FAILED"
+  | "ADDUSER_ENDED"
+  | "UPDATEUSER_REQUEST"
+  | "UPDATEUSER_SUCCEED"
+  | "UPDATEUSER_FAILED"
+  | "UPDATEUSER_ENDED";
+
+export interface UsersAction {
+  type: UsersActionType;
+  payload?: Record<any, any>;
+}
+
+export type MouseEventHandlerType<T> = (
+  event: React.MouseEvent<T, MouseEvent>
+) => void;

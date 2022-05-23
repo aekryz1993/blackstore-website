@@ -39,10 +39,7 @@ const initialProducts: ProductsState = {
   error: null,
 };
 
-export const reducer: (
-  state: Readonly<ProductsState>,
-  action: ProductsAction
-) => ProductsState = (
+export const reducer = (
   state: Readonly<ProductsState>,
   action: ProductsAction
 ) => {

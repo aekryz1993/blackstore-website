@@ -1,9 +1,14 @@
-import { ScreenContainer } from "../../../../../styles/layout/Container";
+import { Route, Routes } from "react-router-dom";
+import { RouteType } from "../../../../../shared/constants/types";
 
-const Users = () => (
-  <ScreenContainer>
-    <h1>Users</h1>
-  </ScreenContainer>
+const UsersScreen: React.FC<{ routes?: RouteType[] | undefined }> = ({
+  routes,
+}) => (
+  <Routes>
+    {routes?.map((route) => (
+      <Route key={route.name} path={route.path} element={<route.Component />} />
+    ))}
+  </Routes>
 );
 
-export default Users;
+export default UsersScreen;

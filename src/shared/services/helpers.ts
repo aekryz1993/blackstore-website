@@ -59,3 +59,7 @@ export async function failedWithoutError(dispatch: Dispatch | undefined) {
     return error;
   }
 }
+
+export async function EndAction(dispatch: Dispatch | undefined) {
+  checkDeterminedDispatch(dispatch)();
+}

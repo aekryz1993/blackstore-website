@@ -3,10 +3,11 @@ import getUrl from "../../../../../../../shared/constants/apiUrls";
 import { HeaderText } from "../../../../../../../styles/components/HeaderText";
 import useProduct from "./useProduct";
 import Categories from "./components/Categories";
-import { AddBtn, ProductScreenContainer } from "./style";
+import { ProductScreenContainer } from "./style";
 import { useTheme } from "styled-components";
 import { useState } from "react";
 import AddCategory from "./components/AddCategory";
+import { AddBtn } from "../../../../../../../styles/components/Button";
 
 const ProductScreen = () => {
   const { product } = useProduct();
@@ -23,7 +24,7 @@ const ProductScreen = () => {
       />
       <Categories categories={product?.ProductCategories} />
       <AddBtn
-        size={45}
+        size={55}
         color={theme.colors.primary.light}
         onClick={() => setisopen(true)}
       />

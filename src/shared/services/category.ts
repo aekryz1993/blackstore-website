@@ -1,4 +1,4 @@
-import { postApi } from "../../apis";
+import { postApi, updateApi } from "../../apis";
 import { url } from "../constants/apiUrls";
 import { Dispatch, ProductCategoriesType } from "../constants/types";
 import { checkDeterminedDispatch } from "../helpers/util";
@@ -10,14 +10,6 @@ export interface CategoryBody {
   dollar: number;
   dinnar: number;
   euro: number;
-}
-
-interface UpdateType {
-  context: UpdateCategoryContext;
-  body: CategoryBody;
-  token: string;
-  id: string;
-  categories: ProductCategoriesType[];
 }
 
 export interface AddCategoryContext {
@@ -32,6 +24,14 @@ export interface UpdateCategoryContext {
   updateCategorySuccessed?: Dispatch;
   updateCategoryFailed?: Dispatch;
   updateCategoryEnded?: Dispatch;
+}
+
+interface UpdateType {
+  context: UpdateCategoryContext;
+  body: CategoryBody;
+  token: string;
+  id: string;
+  categories: ProductCategoriesType[];
 }
 
 export async function addCategoryFlow(
@@ -66,7 +66,7 @@ export async function updateCategoryFlow({
 }: UpdateType) {
   try {
     checkDeterminedDispatch(context?.updateCategoryRequest)();
-    const response = await postApi<CategoryBody>({
+    const response = await updateApi<CategoryBody>({
       url:
         typeof url.updateCategory === "function"
           ? (url.updateCategory(id) as string)
@@ -78,6 +78,7 @@ export async function updateCategoryFlow({
       dispatch: context?.updateCategorySuccessed,
       response,
       labels: ["categories", "id", "updatedCategory"],
+      dataLabels: ["categories", "id", "product"],
       data: [categories, id],
     });
   } catch (error) {

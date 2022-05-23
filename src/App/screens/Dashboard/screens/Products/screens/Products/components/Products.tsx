@@ -1,6 +1,6 @@
 import Loading from "../../../../../../../../App/components/Loading";
 import { Status } from "../../../../../../../../Enums";
-import { memo } from "react";
+import { memo, useState } from "react";
 import Carousel from "../../../../../../../../shared/modules/Carousel";
 import { Container } from "../../../../../../../../styles/layout/Container";
 import { ProductItem } from "../../../style";
@@ -8,10 +8,15 @@ import { ProductsState } from "../../../types";
 import Bar from "./Bar";
 import getUrl from "../../../../../../../../shared/constants/apiUrls";
 import { useLocation, useNavigate } from "react-router-dom";
+import { AddBtn } from "../../../../../../../../styles/components/Button";
+import { useTheme } from "styled-components";
+import AddProduct from "./AddProduct";
 
 const Products = memo(({ products, status }: Omit<ProductsState, "error">) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isopen, setisopen] = useState(false);
+  const theme = useTheme();
 
   return (
     <Container className="flex flex-col items-center gap-8 w-4xl mt-12">
@@ -36,6 +41,12 @@ const Products = memo(({ products, status }: Omit<ProductsState, "error">) => {
             ))}
         </Carousel>
       )}
+      <AddBtn
+        size={55}
+        color={theme.colors.primary.light}
+        onClick={() => setisopen(true)}
+      />
+      <AddProduct setisopen={setisopen} isopen={isopen} />
     </Container>
   );
 });

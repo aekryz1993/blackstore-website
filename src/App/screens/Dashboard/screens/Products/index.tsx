@@ -1,8 +1,7 @@
-import { RouteType } from "../../../../..//shared/constants/types";
-import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
+import { RouteType } from "../../../../../shared/constants/types";
 
-const ProductsScreen: FC<{ routes?: RouteType[] | undefined }> = ({
+const ProductsScreen: React.FC<{ routes?: RouteType[] | undefined }> = ({
   routes,
 }) => (
   <Routes>

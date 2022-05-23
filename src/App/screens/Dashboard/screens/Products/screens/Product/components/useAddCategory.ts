@@ -1,7 +1,4 @@
-import {
-  resetInputs,
-  useCallbackRef,
-} from "../../../../../../../../shared/helpers/util";
+import { useCallbackRef } from "../../../../../../../../shared/helpers/util";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { IFormInput } from "./type";
 import {
@@ -11,11 +8,9 @@ import {
 import { CategoriesContextTypeDef } from "../../../../../../../../shared/providers/CategoriesProvider";
 import useLocalStorage from "../../../../../../../../shared/hooks/useLocalStorage";
 import { useMultiRef } from "../../../../../../../../shared/hooks/useMultiRef";
-import { Status } from "../../../../../../../../Enums";
 
 type CbRefs = Pick<
   CategoriesContextTypeDef,
-  | "categoriesState"
   | "addCategoryRequest"
   | "addCategorySuccessed"
   | "addCategoryFailed"
@@ -32,7 +27,6 @@ const defaultBody = {
 };
 
 const useAddCategory = ({
-  categoriesState,
   addCategoryRequest,
   addCategorySuccessed,
   addCategoryFailed,
@@ -58,8 +52,6 @@ const useAddCategory = ({
       dinnar: Number(dinnar.current?.value) ?? 0,
       euro: Number(euro.current?.value) ?? 0,
     });
-    categoriesState.status === Status.SUCCESS &&
-      resetInputs([label, dollar, dinnar, euro]);
   };
 
   const data = useMemo(
@@ -94,16 +86,10 @@ const useAddCategory = ({
     token,
   ]);
 
-  useEffect(() => {
-    const cleanupAddCategory = savedAddCategoryEnded.current;
-    return () => {
-      cleanupAddCategory();
-    };
-  }, [savedAddCategoryEnded]);
-
   return {
     onSubmit,
     refs: [label, dollar, dinnar, euro],
+    savedAddCategoryEnded: savedAddCategoryEnded.current,
   };
 };
 

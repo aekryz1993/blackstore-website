@@ -1,7 +1,7 @@
-import { Field } from "../../../shared/constants/types";
+import { Dispatch, Field } from "../../../shared/constants/types";
 import { SubmitErrorHandler } from "react-hook-form";
 import { Status } from "../../../Enums";
-import { FC, FormEvent, RefObject } from "react";
+import { ChangeEventHandler, FC, FormEvent, RefObject } from "react";
 
 export interface FormHookType {
   onSubmit: SubmitErrorHandler<any>;
@@ -14,8 +14,8 @@ export interface FormHookType {
 }
 
 interface CommonFormTypes {
-  fields: Readonly<Field[]>;
-  refs: RefObject<HTMLInputElement>[];
+  fields?: Readonly<Field[]>;
+  refs?: RefObject<HTMLInputElement>[];
   status?: Status;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   formClsname?: string;
@@ -23,13 +23,33 @@ interface CommonFormTypes {
 }
 
 export interface FormTypes extends CommonFormTypes {
-  cancelBtn?: FC;
+  secondBtn?: FC;
   textBtn: string;
 }
 
 export interface FormWithHeadTypes extends CommonFormTypes {
   cancel: () => void;
   headerTitle: string;
-  // errors: { [key: string]: string };
-  // setErrors: Dispatch<React.SetStateAction<{}>>;
+  reset?: boolean;
+  nextBtn?: boolean;
+  successMsg?: string;
+  errorMsg?: string;
+  endAction?: Dispatch;
+  topElementRender?: FC<{}>;
+  bottomElementRender?: FC<{}>;
+}
+
+export interface UploadFileFormType {
+  formClsname?: string;
+  cancel: () => void;
+  reset: () => void;
+  fileRef: RefObject<HTMLInputElement>;
+  headerTitle: string;
+  status?: Status;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  onFileChange: ChangeEventHandler<HTMLInputElement>;
+  textBtn: string;
+  successMsg: string;
+  endAction?: Dispatch;
+  errorMsg: string | null | undefined;
 }

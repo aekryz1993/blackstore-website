@@ -27,6 +27,7 @@ const ProductsContainer = () => {
           fetchProductsRequest: savedProductsRequest.current,
           fetchProductsSuccessed: savedFProductsSuccessed.current,
           fetchProductsFailed: savedFProductsFailed.current,
+          savedFProductsEnded: savedFProductsEnded.current,
         },
         token as string
       );
@@ -36,6 +37,7 @@ const ProductsContainer = () => {
     savedProductsRequest,
     savedFProductsSuccessed,
     savedFProductsFailed,
+    savedFProductsEnded,
     token,
   ]);
 

@@ -19,8 +19,7 @@ const AddCategory: FC<{
     addCategoryEnded,
   } = useCategories();
 
-  const { onSubmit, refs } = useAddCategory({
-    categoriesState,
+  const { onSubmit, refs, savedAddCategoryEnded } = useAddCategory({
     addCategoryRequest,
     addCategorySuccessed,
     addCategoryFailed,
@@ -30,6 +29,7 @@ const AddCategory: FC<{
 
   const handleCancel = () => {
     resetInputs(refs);
+    savedAddCategoryEnded();
     setisopen(false);
   };
 
@@ -37,11 +37,15 @@ const AddCategory: FC<{
     <Modal isopen={isopen}>
       <Form
         onSubmit={onSubmit}
-        fields={categoryFields}
+        fields={categoryFields()}
         status={categoriesState.status}
+        successMsg="Category has been successfully created"
+        errorMsg="The Category is already exist"
         headerTitle="Add New Category"
         cancel={handleCancel}
+        endAction={savedAddCategoryEnded}
         refs={refs}
+        reset={true}
       />
     </Modal>
   );

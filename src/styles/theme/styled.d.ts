@@ -1,6 +1,6 @@
 import "styled-components";
 
-interface Colors {
+export interface Colors {
   dark: string;
   darkGreen: string;
   green: string;
@@ -9,7 +9,7 @@ interface Colors {
   gray: string;
 }
 
-interface SecondaryColors {
+export interface SecondaryColors {
   warning?: string;
   info?: string;
   success?: string;

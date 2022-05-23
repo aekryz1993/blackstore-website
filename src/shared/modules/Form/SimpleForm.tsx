@@ -18,7 +18,7 @@ const Form = ({
   onSubmit,
   fieldClsName,
   formClsname,
-  cancelBtn,
+  secondBtn,
 }: FormTypes) => {
   const [errors, setErrors] = useState({});
 
@@ -28,10 +28,14 @@ const Form = ({
       e.preventDefault();
       let anyError = false;
 
-      anyError = emptyFieldsValidation(fields as OneField[], setErrors, refs);
+      anyError = refs
+        ? emptyFieldsValidation(fields as OneField[], setErrors, refs)
+        : false;
       if (anyError) return;
 
-      anyError = minLengthsValidation(fields as OneField[], setErrors, refs);
+      anyError = refs
+        ? minLengthsValidation(fields as OneField[], setErrors, refs)
+        : false;
       if (anyError) return;
 
       if (!anyError) {
@@ -50,8 +54,8 @@ const Form = ({
                   <FiledItem
                     key={_field.name}
                     fieldClsName={fieldClsName}
-                    field={field}
-                    ref={refs[_field.id]}
+                    field={_field}
+                    ref={refs && refs[_field.id as number]}
                     errors={errors}
                   />
                 ))}
@@ -61,14 +65,14 @@ const Form = ({
               key={field.name}
               fieldClsName={fieldClsName}
               field={field}
-              ref={refs[field.id]}
+              ref={refs && refs[field.id as number]}
               errors={errors}
             />
           )
         )}
 
-      <Container className="flex justify-between items-center">
-        {cancelBtn?.({})}
+      <Container className="flex justify-between items-center gap-8">
+        {secondBtn?.({})}
         <Button
           type="submit"
           data-testid="submit"

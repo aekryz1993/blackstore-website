@@ -29,8 +29,11 @@ export const ErrorText = styled(TextHelper)`
   margin-left: 0.5em;
 `;
 
-export const TextButton = styled(TextHelper)`
-  color: ${(props) => props.theme.colors.primary.light};
+export const TextButton = styled(TextHelper)<{ mode?: "dark" | "light" }>`
+  color: ${(props) =>
+    props.mode === "light"
+      ? props.theme.colors.primary.dark
+      : props.theme.colors.primary.light};
   font-weight: bold;
 `;
 

@@ -2,6 +2,7 @@ import { routeConstants } from "../../../../../shared/constants";
 import { setRoute } from "../../../../../shared/helpers/routesHelper";
 import { Route } from "../../../../../shared/constants/routes";
 import Users from ".";
+import usersRoute from "./screens/Users/route";
 
 const USERS: Route | undefined =
   routeConstants.DASHBOARD.subroutes &&
@@ -11,4 +12,5 @@ export default setRoute({
   name: USERS?.name as string,
   path: USERS?.route as string,
   Component: Users,
+  routes: [usersRoute],
 });

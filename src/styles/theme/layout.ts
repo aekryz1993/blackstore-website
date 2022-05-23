@@ -225,6 +225,14 @@ const layout = css`
     flex-shrink: 5;
   }
 
+  .flex-item-1 {
+    flex: 1;
+  }
+
+  .flex-item-5 {
+    flex: 5;
+  }
+
   .order-1 {
     order: 1;
   }
@@ -395,6 +403,12 @@ const layout = css`
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+  }
+
+  .center-x {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   @media (min-width: 640px) {

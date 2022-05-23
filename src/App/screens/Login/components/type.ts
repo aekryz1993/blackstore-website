@@ -12,5 +12,5 @@ export type IFormInputFilled = {
 
 export type Props = Pick<
   FormTypes,
-  "refs" | "status" | "onSubmit" | "cancelBtn"
+  "refs" | "status" | "onSubmit" | "secondBtn"
 > & { error: null | string | undefined };

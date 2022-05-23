@@ -23,6 +23,17 @@ const productsSubroutes: Readonly<Routes> = Object.freeze({
   },
 });
 
+const usersSubroutes: Readonly<Routes> = Object.freeze({
+  USERS: {
+    name: "Users",
+    route: "/",
+  },
+  USER: {
+    name: "User",
+    route: "/user/:id",
+  },
+});
+
 const dashboardSubroutes: Readonly<Routes> = Object.freeze({
   PRODUCTS: {
     name: "Products",
@@ -31,7 +42,8 @@ const dashboardSubroutes: Readonly<Routes> = Object.freeze({
   },
   USERS: {
     name: "Users",
-    route: "/users",
+    route: "/users/*",
+    subroutes: usersSubroutes,
   },
   MESSAGES: {
     name: "Messages",

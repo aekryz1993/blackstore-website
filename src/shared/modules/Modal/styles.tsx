@@ -8,4 +8,5 @@ export const ModalContainer = styled(Container)`
   background-color: ${(props) => props.theme.colors.primary.dark};
   transition: top 300ms ease-in;
   padding-bottom: 1.5rem;
+  max-height: 90%;
 `;

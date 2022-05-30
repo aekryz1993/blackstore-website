@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@src": [
+        "src"
+      ],
+      "@src/*": [
+        "src/*"
+      ],
+      "@App": [
+        "src/App"
+      ],
+      "@App/*": [
+        "src/App/*"
+      ],
+      "@shared": [
+        "src/shared"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@mocks/*": [
+        "src/mocks/*"
+      ]
+    }
+  }
+}

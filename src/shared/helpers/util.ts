@@ -1,7 +1,6 @@
 import { Dispatch } from "@shared/constants/types";
 // import { Status } from "@src/Enums";
-import { RefObject, useRef } from "react";
-// import { Dispatch } from "../constants/types";
+import { RefObject, useEffect, useRef } from "react";
 import { Status } from "../../Enums";
 
 type Callback = (...args: any[]) => any;
@@ -57,3 +56,24 @@ export const resetInputs = (refs: RefObject<HTMLInputElement>[]) => {
     ref.current!.value = "";
   });
 };
+
+export const findIndexById = (
+  id: string,
+  items: { id: string; [key: string]: any }[] | null
+) => items && items.length && items.findIndex((item) => item.id === id);
+
+// from useHook (https://usehooks.com/)
+export function useMemoCompare(
+  next: any,
+  compare: (prev: any, next: any) => boolean
+) {
+  const previousRef = useRef();
+  const previous = previousRef.current;
+  const isEqual = compare(previous, next);
+  useEffect(() => {
+    if (!isEqual) {
+      previousRef.current = next;
+    }
+  });
+  return isEqual ? previous : next;
+}

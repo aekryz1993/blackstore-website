@@ -1,4 +1,7 @@
-import { FormTypes } from "../../../../shared/modules/Form/types";
+import {
+  BottomBtnsFormType,
+  FormType,
+} from "../../../../shared/modules/Form/types";
 
 export type IFormInput = {
   username: string | undefined;
@@ -10,7 +13,5 @@ export type IFormInputFilled = {
   password: string;
 };
 
-export type Props = Pick<
-  FormTypes,
-  "refs" | "status" | "onSubmit" | "secondBtn"
-> & { error: null | string | undefined };
+export type Props = Pick<FormType, "refs" | "status" | "onSubmit"> &
+  Pick<BottomBtnsFormType, "secondBtn"> & { error?: null | string | undefined };

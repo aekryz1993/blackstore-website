@@ -7,22 +7,22 @@ export const isSmallerThen = (str: string, n: number) => str.length < n;
 
 const conditionEmptyField = (
   field: OneField,
-  setErrors: Dispatch<React.SetStateAction<{ [key: string]: any }>>,
+  setErrors: Dispatch<React.SetStateAction<{ [key: string]: any }>> | undefined,
   refs: RefObject<any>[]
 ) => {
   let error = false;
   if (field.required && isEmpty(refs[field.id].current.value)) {
-    setErrors((prev) => ({ ...prev, [field.name]: field.required }));
+    setErrors?.((prev) => ({ ...prev, [field.name]: field.required }));
     error = true;
   } else if (!isEmpty(refs[field.id].current.value)) {
-    setErrors((prev) => ({ ...prev, [field.name]: null }));
+    setErrors?.((prev) => ({ ...prev, [field.name]: null }));
   }
   return error;
 };
 
 export const emptyFieldsValidation = (
   fields: Readonly<Field[]>,
-  setErrors: Dispatch<React.SetStateAction<{ [key: string]: any }>>,
+  setErrors: Dispatch<React.SetStateAction<{ [key: string]: any }>> | undefined,
   refs: RefObject<any>[]
 ) => {
   let anyError = false;
@@ -43,7 +43,7 @@ export const emptyFieldsValidation = (
 
 const conditionMinLengthField = (
   field: OneField,
-  setErrors: Dispatch<React.SetStateAction<{ [key: string]: any }>>,
+  setErrors: Dispatch<React.SetStateAction<{ [key: string]: any }>> | undefined,
   refs: RefObject<any>[]
 ) => {
   let error = false;
@@ -51,20 +51,20 @@ const conditionMinLengthField = (
     field.minLength &&
     isSmallerThen(refs[field.id].current.value, field.minLength.value)
   ) {
-    setErrors((prev) => ({
+    setErrors?.((prev) => ({
       ...prev,
       [field.name]: field.minLength?.message,
     }));
     error = true;
   } else if (!isEmpty(refs[field.id].current.value)) {
-    setErrors((prev) => ({ ...prev, [field.name]: null }));
+    setErrors?.((prev) => ({ ...prev, [field.name]: null }));
   }
   return error;
 };
 
 export const minLengthsValidation = (
   fields: Readonly<Field[]>,
-  setErrors: Dispatch<React.SetStateAction<{ [key: string]: any }>>,
+  setErrors: Dispatch<React.SetStateAction<{ [key: string]: any }>> | undefined,
   refs: RefObject<any>[]
 ) => {
   let anyError = false;

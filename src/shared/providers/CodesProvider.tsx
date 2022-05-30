@@ -30,6 +30,8 @@ export type CodesContextType = CodesContextTypeDef | undefined;
 
 const initialCodes: CodesState = {
   codes: [],
+  fileUrl: null,
+  commands: null,
   status: Status.PENDING,
   error: null,
 };
@@ -57,7 +59,9 @@ export const reducer = (state: Readonly<CodesState>, action: CodesAction) => {
     FETCHCODES_SUCCEED: successAction<CodesState>({
       state,
       fields: () => ({
-        codes: action.payload?.codes,
+        codes: action.payload?.codes ? action.payload?.codes : [],
+        fileUrl: action.payload?.fileUrl,
+        commands: action.payload?.commands,
         error: null,
       }),
     }),
@@ -67,7 +71,7 @@ export const reducer = (state: Readonly<CodesState>, action: CodesAction) => {
     }),
     FETCHCODES_ENDED: endAction<CodesState>({
       state,
-      fields: () => ({ error: null }),
+      fields: () => ({ error: null, fileUrl: null, commands: null }),
     }),
 
     DEFAULT: defaultState<CodesState>(state),
@@ -92,10 +96,18 @@ export const CodesProvider: React.FC = ({ children }) => {
 
   const fetchCodesRequest = () => dispatch({ type: "FETCHCODES_REQUEST" });
 
-  const fetchCodesSuccessed = ({ codes }: { codes: CodesType[] }) =>
+  const fetchCodesSuccessed = ({
+    codes,
+    commands,
+    fileUrl,
+  }: {
+    codes?: CodesType[];
+    fileUrl: string;
+    commands: { [key: string]: number }[];
+  }) =>
     dispatch({
       type: "FETCHCODES_SUCCEED",
-      payload: { codes },
+      payload: { codes, commands, fileUrl },
     });
 
   const fetchCodesFailed = ({ error }: Pick<CodesState, "error">) =>

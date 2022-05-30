@@ -1,5 +1,5 @@
 import { Field } from "@shared/constants/types";
-import { IFormInput } from "../../Product/components/type";
+import { IFormInput } from "../../Product/type";
 
 export const categoryFields: (
   categoryValues?: Partial<IFormInput>

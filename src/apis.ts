@@ -87,3 +87,21 @@ export async function formDataApi<T>({
   const data = await response.data;
   return { data };
 }
+
+export async function downloadFileApi(
+  url: string,
+  token?: string
+): Promise<any> {
+  const response = await fetch(getUrl(url), {
+    method: "GET",
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
+  const blob = await response.blob();
+  const blobUrl = window.URL.createObjectURL(blob);
+  let link = document.createElement("a");
+  link.href = blobUrl;
+  link.download = url.split("/")[url.split("/").length - 1];
+  link.click();
+}

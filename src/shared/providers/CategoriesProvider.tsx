@@ -1,7 +1,7 @@
 import React, { useReducer, createContext, useContext } from "react";
 import { Status } from "../../Enums";
 import { Dispatch, ProductCategoriesType } from "@shared/constants/types";
-import { updateList } from "../helpers/util";
+import { updateList, useMemoCompare } from "../helpers/util";
 import {
   CategoriesState,
   CategoriesAction,
@@ -13,6 +13,7 @@ import {
   loadingBtn,
   successAction,
 } from "./helper";
+import useProduct from "../../App/screens/Dashboard/screens/Products/screens/Product/useProduct";
 
 export interface CategoriesContextTypeDef {
   categoriesState: CategoriesState;
@@ -169,3 +170,25 @@ export function useCategories() {
 
   return context;
 }
+
+export const useMemoCategories = () => {
+  const { product } = useProduct();
+
+  const categories: ProductCategoriesType[] = useMemoCompare(
+    product?.ProductCategories,
+    (prev, next) => {
+      if (!prev || !prev.length) return false;
+      if (prev.length !== next.length) return false;
+      for (let index in prev) {
+        if (
+          prev[index].id !== next[index].id ||
+          prev[index].updatedAt !== next[index].updatedAt
+        )
+          return false;
+      }
+      return true;
+    }
+  );
+
+  return { categories };
+};

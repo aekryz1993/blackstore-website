@@ -1,6 +1,10 @@
-import styled from "styled-components";
+import styled, {
+  css,
+  DefaultTheme,
+  ThemedStyledProps,
+} from "styled-components";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdGetApp, MdRemove } from "react-icons/md";
 
 interface Commonypes {
   className?: string;
@@ -74,18 +78,44 @@ export const HamburgerBtn = styled(IconHelper)`
   border-radius: ${(props) => props.radius};
 `;
 
+const commonBtnStyle = (
+  props: ThemedStyledProps<AddBtnTypes, DefaultTheme>
+) => css`
+  user-select: none;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0.2em;
+  box-shadow: 0px 0px 5px 2px ${props.theme.colors.primary.darkGreen};
+  background-color: ${props.theme.colors.primary.green};
+`;
+
 const AddBtnHelper = (props: AddBtnTypes) => (
   <MdAdd {...props} color={props.color} size={props.size} />
+);
+
+const MinusBtnHelper = (props: AddBtnTypes) => (
+  <MdRemove {...props} color={props.color} size={props.size} />
+);
+
+const GetBtnHelper = (props: AddBtnTypes) => (
+  <MdGetApp {...props} color={props.color} size={props.size} />
 );
 
 export const AddBtn = styled(AddBtnHelper)`
   position: fixed;
   right: 2rem;
   bottom: 2rem;
-  user-select: none;
-  cursor: pointer;
-  border-radius: 50%;
-  padding: 0.2em;
-  box-shadow: 0px 0px 5px 2px ${(props) => props.theme.colors.primary.darkGreen};
-  background-color: ${(props) => props.theme.colors.primary.green};
+  ${(props) => commonBtnStyle(props)}
+`;
+
+export const AddBtnGrp = styled(AddBtnHelper)`
+  ${(props) => commonBtnStyle(props)}
+`;
+
+export const MinusBtnGrp = styled(MinusBtnHelper)`
+  ${(props) => commonBtnStyle(props)}
+`;
+
+export const GetBtnGrp = styled(GetBtnHelper)`
+  ${(props) => commonBtnStyle(props)}
 `;

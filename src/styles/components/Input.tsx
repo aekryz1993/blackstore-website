@@ -1,120 +1,45 @@
-import { FC, forwardRef, Fragment, LegacyRef, Ref } from "react";
-import styled from "styled-components";
+import { forwardRef, LegacyRef, Ref } from "react";
+import styled, {
+  css,
+  DefaultTheme,
+  ThemedStyledProps,
+} from "styled-components";
 import { Container } from "../layout/Container";
 
-interface Props {
-  className?: string;
-  type?: string;
-  placeholder?: string;
-  name?: string;
-  required?: string;
-  dataTestid?: string;
-  minLength?: { value: number; message: string };
-  register: any;
-}
+type InputProps = React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+> & {
+  datatestid?: string | undefined;
+};
 
-interface SimpleInputProps {
-  className?: string;
-  type?: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
-  placeholder?: string;
-  name: string;
-  value: string | undefined;
-  dataTestid?: string;
-}
-
-const Helper: FC<Props> = forwardRef((props, ref) => (
-  <input
-    className={props.className}
-    placeholder={props.placeholder}
-    {...props.register(props.name, {
-      required: props.required,
-      minLength: {
-        value: props.minLength?.value,
-        message: props.minLength?.message,
-      },
-    })}
-    type={props.type}
-    data-testid={props.dataTestid}
-  />
-));
-
-const SimpleInputHelper = forwardRef(
-  (props: SimpleInputProps, ref: LegacyRef<HTMLInputElement>) => (
-    <input
-      className={props.className}
-      placeholder={props.placeholder}
-      type={props.type}
-      name={props.name}
-      defaultValue={props.value}
-      ref={ref}
-      data-testid={props.dataTestid}
-    />
+const InputHelper = forwardRef(
+  (props: InputProps, ref: LegacyRef<HTMLInputElement>) => (
+    <input {...props} ref={ref} data-testid={props.datatestid} />
   )
 );
 
-export const Input = styled(Helper)`
+const commonInput = <PropsType,>(
+  props: ThemedStyledProps<PropsType, DefaultTheme>
+) => css`
   width: 100%;
   height: 3em;
-  border: 2px solid ${(props) => props.theme.colors.primary.darkGreen};
+  border: 2px solid ${props.theme.colors.primary.darkGreen};
   border-radius: 0.5em;
-  background-color: ${(props) => props.theme.colors.primary.dark};
+  background-color: ${props.theme.colors.primary.dark};
   padding-left: 1.5em;
-  color: ${(props) => props.theme.colors.primary.light};
+  color: ${props.theme.colors.primary.light};
   &:focus {
     outline: none !important;
-    border-color: ${(props) => props.theme.colors.primary.lightGreen};
-  }
-`;
-
-export const SimpleInput = styled(SimpleInputHelper)`
-  width: 100%;
-  height: 3em;
-  border: 2px solid ${(props) => props.theme.colors.primary.darkGreen};
-  border-radius: 0.5em;
-  background-color: ${(props) => props.theme.colors.primary.dark};
-  padding-left: 1.5em;
-  color: ${(props) => props.theme.colors.primary.light};
-  &:focus {
-    outline: none !important;
-    border-color: ${(props) => props.theme.colors.primary.lightGreen};
+    border-color: ${props.theme.colors.primary.lightGreen};
   }
 `;
 
 const InputBtnHelper: React.ForwardRefExoticComponent<
-  React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > &
-    React.RefAttributes<HTMLInputElement>
+  InputProps & React.RefAttributes<HTMLInputElement>
 > = forwardRef((props, ref: LegacyRef<HTMLInputElement>) => (
   <input {...props} placeholder="_" ref={ref} />
 ));
-
-export const InputButton = styled(InputBtnHelper)<{ content: string }>`
-  &::-webkit-file-upload-button {
-    visibility: hidden;
-  }
-  &::before {
-    content: ${(props) => props.content};
-    display: inline-block;
-    background-color: ${(props) => props.theme.colors.primary.green};
-    border-radius: 0.5em;
-    height: 3em;
-    outline: none;
-    white-space: nowrap;
-    -webkit-user-select: none;
-    cursor: pointer;
-    font-weight: 700;
-    text-shadow: 1px 1px #fff;
-  }
-  &:hover::before {
-    background-color: ${(props) => props.theme.colors.primary.lightGreen};
-  }
-  &:active {
-    background-color: ${(props) => props.theme.colors.primary.green};
-  }
-`;
 
 const Label = styled.label``;
 
@@ -167,19 +92,44 @@ const InputCheckboxStyle = styled.input`
   }
 `;
 
+export const Input = styled(InputHelper)`
+  ${(props) =>
+    commonInput<InputProps & React.RefAttributes<HTMLInputElement>>(props)}
+`;
+
+export const InputButton = styled(InputBtnHelper)<{ content?: string }>`
+  &::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  &::before {
+    content: ${(props) => props.content};
+    display: inline-block;
+    background-color: ${(props) => props.theme.colors.primary.green};
+    border-radius: 0.5em;
+    height: 3em;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    font-weight: 700;
+    text-shadow: 1px 1px #fff;
+  }
+  &:hover::before {
+    background-color: ${(props) => props.theme.colors.primary.lightGreen};
+  }
+  &:active {
+    background-color: ${(props) => props.theme.colors.primary.green};
+  }
+`;
+
 export const InputCheckbox = forwardRef(
-  (props: SimpleInputProps, ref: Ref<HTMLInputElement>) => (
+  (props: InputProps, ref: Ref<HTMLInputElement>) => (
     <Container>
       <InputCheckboxStyle
-        className={props.className}
-        type={props.type}
-        name={props.name}
-        placeholder={props.placeholder}
+        {...props}
         id={props.name}
-        value={props.value}
         ref={ref}
-        onChange={props.onChange}
-        data-testid={props.dataTestid}
+        data-testid={props.datatestid}
       />
       <Label className="label" htmlFor={props.name}>
         {props.placeholder}
@@ -187,3 +137,12 @@ export const InputCheckbox = forwardRef(
     </Container>
   )
 );
+
+export const InputNumber = styled(Input)`
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  -moz-appearance: textfield;
+`;

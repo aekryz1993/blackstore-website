@@ -53,4 +53,8 @@ export const SubText = styled(TextHelper)`
   text-overflow: ellipsis;
 `;
 
+export const H4 = styled.h4`
+  color: ${(props) => props.theme.colors.primary.light};
+`;
+
 export const LoadingIcon = styled(IconHelper)``;

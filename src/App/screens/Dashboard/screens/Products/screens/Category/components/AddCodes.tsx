@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { Button } from "../../../../../../../../styles/components/Button";
 import { TextButton } from "../../../../../../../../styles/components/Text";
 import Modal from "../../../../../../../../shared/modules/Modal";

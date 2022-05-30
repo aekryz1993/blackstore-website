@@ -1,5 +1,5 @@
 import { useCallbackRef } from "../../../../../../../../shared/helpers/util";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import {
   updateCategoryFlow,
   CategoryBody,
@@ -7,7 +7,7 @@ import {
 import { CategoriesContextTypeDef } from "../../../../../../../../shared/providers/CategoriesProvider";
 import useLocalStorage from "../../../../../../../../shared/hooks/useLocalStorage";
 import { useMultiRef } from "../../../../../../../../shared/hooks/useMultiRef";
-import { IFormInput } from "../../Product/components/type";
+import { IFormInput } from "../../Product/type";
 import useDeepCompareEffect from "use-deep-compare-effect";
 
 type CbRefs = Pick<

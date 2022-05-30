@@ -27,6 +27,7 @@ const Auth: React.FC = () => {
 
   useEffect(() => {
     let doUpdate = true;
+    const cleanup = savedSessionEnded.current;
     async function check() {
       if (doUpdate && token) {
         await checkSessionFlow(token as string, {
@@ -40,6 +41,7 @@ const Auth: React.FC = () => {
     check();
     return () => {
       doUpdate = false;
+      cleanup();
     };
   }, [
     token,
@@ -48,11 +50,6 @@ const Auth: React.FC = () => {
     savedSessionFailed,
     savedSessionEnded,
   ]);
-
-  useEffect(() => {
-    const cleanup = savedSessionEnded.current;
-    return () => cleanup();
-  }, [savedSessionEnded]);
 
   return (
     <Routes>

@@ -1,5 +1,5 @@
 interface Url {
-  [property: string]: string | ((v?: any) => string);
+  [property: string]: string | ((...[v]: any) => string);
 }
 
 export const url: Readonly<Url> = {
@@ -17,6 +17,8 @@ export const url: Readonly<Url> = {
   codesCount: "",
   addCodesBycategory: (categoryId) =>
     `api/adminSession/productCode/addMulti/${categoryId}`,
+  getCodesBycategory: (serviceName, order) =>
+    `api/adminSession/productCode/get/${serviceName}/${order}`,
 };
 
 function getUrl(url: string | undefined) {

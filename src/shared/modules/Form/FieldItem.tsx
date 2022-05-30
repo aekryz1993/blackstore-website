@@ -1,4 +1,4 @@
-import { SimpleInput, InputCheckbox } from "../../../styles/components/Input";
+import { Input, InputCheckbox } from "../../../styles/components/Input";
 import { OneField } from "../../../shared/constants/types";
 import { forwardRef, Ref } from "react";
 import { Item } from "../../../styles/components/Item";
@@ -27,16 +27,16 @@ const FiledItem = forwardRef(
           value={field.value as string}
           ref={ref}
           onChange={onChange}
-          dataTestid={field.name}
+          datatestid={field.name}
         />
       ) : (
-        <SimpleInput
+        <Input
           type={field.type}
           placeholder={field.placeholder}
           name={field.name}
-          value={field.value as string}
+          defaultValue={field.value as string}
           ref={ref}
-          dataTestid={field.name}
+          datatestid={field.name}
         />
       )}
       {errors && errors[field.name] && (

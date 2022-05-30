@@ -63,9 +63,9 @@ const useFetchUsers = ({
       btnAction === BtnAction.NEXT && setBtnAction(BtnAction.PENDING);
       fetchUsers();
     }
-    return () => {
-      cleanupFetchUsers();
-    };
+    // return () => {
+    //   cleanupFetchUsers();
+    // };
   }, [
     btnAction,
     savedFetchUsersEnded,

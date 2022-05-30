@@ -1,23 +1,17 @@
-// import { resetInputs } from "../../../../../../../../../shared/helpers/util";
 import { useUsers } from "../../../../../../../../../shared/providers/UsersProvider";
-import { FC, Dispatch, SetStateAction } from "react";
-import Modal from "../../../../../../../../../shared/modules/Modal";
+import { Fragment } from "react";
 import useUserPermissions from "./useUserPermissions";
 import { adminFields, permissionsFields } from "../permissionsFields";
 import { useAddUserBody } from "./addUserBodyProvider";
-import { HeaderText } from "../../../../../../../../../styles/components/HeaderText";
 import { Container } from "../../../../../../../../../styles/layout/Container";
-import { Header } from "../../../../../../../../../shared/modules/Form/styles";
-import Form from "../../../../../../../../../shared/modules/Form/SimpleForm";
-import { CancelButton } from "../../../../../../../../../styles/components/Button";
 import CheckboxItem from "../../../../../../../../../shared/modules/Form/CheckboxItem";
 import { useMultiRef } from "../../../../../../../../../shared/hooks/useMultiRef";
 import { OneField } from "../../../../../../../../../shared/constants/types";
+import { Message } from "../../../../../../../../../shared/components/Massage";
+import { Status } from "../../../../../../../../../Enums";
+import Form from "./UserPermissionsForm";
 
-const UserPermissions: FC<{
-  setisopen: Dispatch<SetStateAction<boolean>>;
-  isopen: boolean;
-}> = ({ setisopen, isopen }) => {
+const UserPermissions = () => {
   const { userBody, setUserBody, setPage } = useAddUserBody();
   const [isAdmin] = useMultiRef<HTMLInputElement>(1);
 
@@ -36,8 +30,8 @@ const UserPermissions: FC<{
     addUserEnded,
   });
 
-  const handleCancel = () => {
-    setPage(1);
+  const handlePrev = () => {
+    setPage(() => 1);
   };
 
   const handleChange =
@@ -60,10 +54,16 @@ const UserPermissions: FC<{
     };
 
   return (
-    <Modal isopen={isopen}>
-      <Header className="flex justify-center items-center h-16 w-full">
-        <HeaderText>User Permissions</HeaderText>
-      </Header>
+    <Fragment>
+      {(usersState.status === Status.SUCCESS ||
+        usersState.status === Status.ERROR) && (
+        <Message
+          endAction={savedAddUserEnded}
+          success="User has been successfully created"
+          error="The User is already exist"
+          status={usersState.status}
+        />
+      )}
       <Container className="flex flex-col gap-2 py-16 px-8">
         <CheckboxItem
           handleChange={handleChange(adminFields().name)}
@@ -86,17 +86,10 @@ const UserPermissions: FC<{
       <Form
         onSubmit={onSubmit}
         status={usersState.status}
-        // successMsg="Category has been successfully created"
-        // errorMsg="The Category is already exist"
         refs={refs}
-        // endAction={savedAddUserEnded}
-        formClsname="px-8 mb-4"
-        textBtn="Add User"
-        secondBtn={() => (
-          <CancelButton onClick={handleCancel}>Prev</CancelButton>
-        )}
+        handlePrev={handlePrev}
       />
-    </Modal>
+    </Fragment>
   );
 };
 

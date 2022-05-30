@@ -1,6 +1,6 @@
 import { Matcher, MatcherOptions } from "@testing-library/dom";
 import { FC } from "react";
-import { SubmitHandler } from "react-hook-form";
+// import { SubmitHandler } from "react-hook-form";
 import { Status } from "@src/Enums";
 
 export interface Image {
@@ -129,18 +129,20 @@ export type Field =
       className: string;
     };
 
-export interface FormHookType {
-  onSubmit: SubmitHandler<any>;
-  fields: Readonly<Field[]>;
-  fieldClsName?: string;
-  formClsname?: string;
-  status?: Status;
-  textBtn: string;
-  cancelBtn?: FC;
-}
+// export interface FormHookType {
+//   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+//   fields: Readonly<Field[]>;
+//   fieldClsName?: string;
+//   formClsname?: string;
+//   status?: Status;
+//   textBtn: string;
+//   cancelBtn?: FC;
+// }
 
 export interface CodesState {
   codes: CodesType[] | [];
+  fileUrl: string | null;
+  commands: { [key: string]: number }[] | null;
   status: Status;
   error: string | undefined | null;
 }

@@ -1,13 +1,13 @@
-import { useCallbackRef } from "../../../../../../../../shared/helpers/util";
+import { useCallbackRef } from "../../../../../../../../../shared/helpers/util";
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { IFormInput } from "./type";
+import { IFormInput } from "../../type";
 import {
   addCategoryFlow,
   CategoryBody,
-} from "../../../../../../../../shared/services/category";
-import { CategoriesContextTypeDef } from "../../../../../../../../shared/providers/CategoriesProvider";
-import useLocalStorage from "../../../../../../../../shared/hooks/useLocalStorage";
-import { useMultiRef } from "../../../../../../../../shared/hooks/useMultiRef";
+} from "../../../../../../../../../shared/services/category";
+import { CategoriesContextTypeDef } from "../../../../../../../../../shared/providers/CategoriesProvider";
+import useLocalStorage from "../../../../../../../../../shared/hooks/useLocalStorage";
+import { useMultiRef } from "../../../../../../../../../shared/hooks/useMultiRef";
 
 type CbRefs = Pick<
   CategoriesContextTypeDef,

@@ -11,7 +11,7 @@ export interface UserBodyType {
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const initialBody: BodyType = {
+export const initialBody: BodyType = {
   firstname: null,
   lastname: null,
   username: null,

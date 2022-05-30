@@ -1,10 +1,9 @@
 import { FC, Dispatch, SetStateAction } from "react";
-import Form from "../../../../../../../../shared/modules/Form/SimpleFormWithHeader";
-import { categoryFields } from "../../Category/components/categoryFields";
-import { useCategories } from "../../../../../../../../shared/providers/CategoriesProvider";
-import Modal from "../../../../../../../../shared/modules/Modal";
+import { useCategories } from "../../../../../../../../../shared/providers/CategoriesProvider";
+import Modal from "../../../../../../../../../shared/modules/Modal";
 import useAddCategory from "./useAddCategory";
-import { resetInputs } from "../../../../../../../../shared/helpers/util";
+import { resetInputs } from "../../../../../../../../../shared/helpers/util";
+import Form from "./AddCategoryForm";
 
 const AddCategory: FC<{
   setisopen: Dispatch<SetStateAction<boolean>>;
@@ -37,15 +36,10 @@ const AddCategory: FC<{
     <Modal isopen={isopen}>
       <Form
         onSubmit={onSubmit}
-        fields={categoryFields()}
         status={categoriesState.status}
-        successMsg="Category has been successfully created"
-        errorMsg="The Category is already exist"
-        headerTitle="Add New Category"
-        cancel={handleCancel}
-        endAction={savedAddCategoryEnded}
         refs={refs}
-        reset={true}
+        endAction={savedAddCategoryEnded}
+        handleCancel={handleCancel}
       />
     </Modal>
   );

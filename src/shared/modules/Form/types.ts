@@ -1,43 +1,6 @@
 import { Dispatch, Field } from "../../../shared/constants/types";
-import { SubmitErrorHandler } from "react-hook-form";
 import { Status } from "../../../Enums";
 import { ChangeEventHandler, FC, FormEvent, RefObject } from "react";
-
-export interface FormHookType {
-  onSubmit: SubmitErrorHandler<any>;
-  fields: Readonly<Field[]>;
-  fieldClsName?: string;
-  formClsname?: string;
-  status?: Status;
-  headerTitle: string;
-  cancel: () => void;
-}
-
-interface CommonFormTypes {
-  fields?: Readonly<Field[]>;
-  refs?: RefObject<HTMLInputElement>[];
-  status?: Status;
-  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  formClsname?: string;
-  fieldClsName?: string;
-}
-
-export interface FormTypes extends CommonFormTypes {
-  secondBtn?: FC;
-  textBtn: string;
-}
-
-export interface FormWithHeadTypes extends CommonFormTypes {
-  cancel: () => void;
-  headerTitle: string;
-  reset?: boolean;
-  nextBtn?: boolean;
-  successMsg?: string;
-  errorMsg?: string;
-  endAction?: Dispatch;
-  topElementRender?: FC<{}>;
-  bottomElementRender?: FC<{}>;
-}
 
 export interface UploadFileFormType {
   formClsname?: string;
@@ -53,3 +16,36 @@ export interface UploadFileFormType {
   endAction?: Dispatch;
   errorMsg: string | null | undefined;
 }
+
+interface CommonType {
+  fields?: Readonly<Field[]>;
+  refs?: RefObject<HTMLInputElement>[];
+  status?: Status;
+  setErrors?: React.Dispatch<React.SetStateAction<{}>>;
+}
+
+export interface FormType extends CommonType {
+  reset?: boolean;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  formClsname?: string;
+}
+
+export type FieldItemsType = {
+  fieldClsName?: string;
+  topElementRender?: FC<{}>;
+  bottomElementRender?: FC<{}>;
+  errors?: { [key: string]: any };
+  endAction?: Dispatch;
+  successMsg?: string;
+  errorMsg?: string;
+} & Omit<CommonType, "setErrors">;
+
+export type HeaderFormType = {
+  headerTitle: string;
+  cancel: () => void;
+} & Pick<CommonType, "status" | "setErrors">;
+
+export type BottomBtnsFormType = {
+  textBtn: string;
+  secondBtn?: FC;
+} & Pick<CommonType, "status">;

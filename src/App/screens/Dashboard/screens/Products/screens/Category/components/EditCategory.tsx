@@ -1,14 +1,14 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import Modal from "../../../../../../../../shared/modules/Modal";
 import { Button } from "../../../../../../../../styles/components/Button";
 import { TextButton } from "../../../../../../../../styles/components/Text";
-import Form from "../../../../../../../../shared/modules/Form/SimpleFormWithHeader";
 import { categoryFields } from "./categoryFields";
-import { IFormInputOptions } from "../../Product/components/type";
+import { IFormInputOptions } from "../../Product/type";
 import { useCategories } from "../../../../../../../../shared/providers/CategoriesProvider";
 import { resetInputs } from "../../../../../../../../shared/helpers/util";
 import useEditCategory from "./useEditCategory";
 import { Container } from "../../../../../../../../styles/layout/Container";
+import Form from "./EditCategoryForm";
 
 const EditCategory = ({
   categoryValues,
@@ -52,15 +52,11 @@ const EditCategory = ({
       <Modal isopen={isopen}>
         <Form
           onSubmit={onSubmit}
-          fields={categoryFields(categoryValues)}
           status={categoriesState.status}
-          successMsg="Category has been successfully updated"
-          errorMsg="Error"
-          headerTitle="Edit Category"
-          cancel={handleCancel}
-          endAction={savedUpdateCategoryEnded}
           refs={refs}
-          reset={false}
+          endAction={savedUpdateCategoryEnded}
+          handleCancel={handleCancel}
+          fields={categoryFields(categoryValues)}
         />
       </Modal>
     </Container>

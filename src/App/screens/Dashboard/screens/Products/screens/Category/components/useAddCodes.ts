@@ -1,5 +1,5 @@
 import { useCallbackRef } from "../../../../../../../../shared/helpers/util";
-import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import useLocalStorage from "../../../../../../../../shared/hooks/useLocalStorage";
 import { CodesContextTypeDef } from "../../../../../../../../shared/providers/CodesProvider";
 import { addCodesFlow } from "../../../../../../../../shared/services/codes";
